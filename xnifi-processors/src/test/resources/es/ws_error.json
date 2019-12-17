@@ -1,0 +1,75 @@
+{
+  "person_retrieve": {
+    "properties": {
+      "birthDate": {
+        "type": "date"
+      },
+      "ehrNo": {
+        "type": "keyword"
+      },
+      "ethnicCode": {
+        "type": "keyword"
+      },
+      "genderCode": {
+        "type": "keyword"
+      },
+      "globalId": {
+        "type": "keyword"
+      },
+      "idCardNo": {
+        "type": "keyword"
+      },
+      "idCardType": {
+        "type": "keyword"
+      },
+      "livingAddr": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "livingAreaCode": {
+        "type": "keyword"
+      },
+      "maritalCode": {
+        "type": "keyword"
+      },
+      "name": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "request": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "requestId": {
+        "type": "keyword"
+      },
+      "response": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "status": {
+        "type": "keyword"
+      }
+    }
+  }
+}

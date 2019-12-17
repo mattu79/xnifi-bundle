@@ -1,0 +1,50 @@
+{
+  "name":"detailsSchema",
+  "namespace":"nifi",
+  "type":"record",
+  "fields":[
+    {"name":"result","type":{
+      "type":"record",
+      "name":"mailing_result",
+      "fields":[
+        {"name":"responseId","type":["null", "string"]},
+        {"name":"responseCode","type":["null", "string"]},
+        {"name":"responseMessage","type":["null", "string"]},
+        {"name":"activityGlobalId","type":["null", "string"]},
+        {"name":"itemList","type":["null", {"type":"array","items":{
+          "type":"record",
+          "name":"itemListArray",
+          "fields":[
+            {"name":"name","type":["null", "string"]},
+            {"name":"value","type":["null", "string"]},
+            {"name":"code","type":["null", "string"]}
+          ]}}]
+        },
+        {"name":"childrenList","type":["null", {"type":"array","items":{
+          "type":"record",
+          "name":"childrenListArray",
+          "fields":[
+            {"name":"name","type":["null", "string"]},
+            {"name":"code","type":["null", "string"]},
+            {"name":"childList","type":["null", {"type":"array","items":{
+              "type":"record",
+              "name":"childListArray",
+              "fields":[
+                {"name":"child","type":["null", {"type":"array","items":{
+                  "type":"record",
+                  "name":"childArray",
+                  "fields":[
+                    {"name":"name","type":["null", "string"]},
+                    {"name":"value","type":["null", "string"]},
+                    {"name":"code","type":["null", "string"]}
+                  ]}}]
+                }
+              ]}}]
+            }
+          ]}}]
+        }
+      ]
+    }
+    }
+  ]
+}

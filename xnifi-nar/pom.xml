@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>io.activedata</groupId>
+		<artifactId>xnifi-bundle</artifactId>
+		<version>${xnifi.version}</version>
+	</parent>
+
+	<artifactId>xnifi-nar</artifactId>
+	<packaging>nar</packaging>
+
+	<properties>
+		<maven.javadoc.skip>true</maven.javadoc.skip>
+		<source.skip>true</source.skip>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.nifi</groupId>
+			<artifactId>nifi-record-serialization-services-nar</artifactId>
+			<version>${nifi.version}</version>
+			<type>nar</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mvel</groupId>
+			<artifactId>mvel2</artifactId>
+			<version>2.4.3.Final</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.activedata</groupId>
+			<artifactId>xnifi-processors</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.activedata</groupId>
+			<artifactId>xnifi-neo4j-processors</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!--<dependency>-->
+			<!--<artifactId>zookeeper</artifactId>-->
+			<!--<groupId>org.apache.zookeeper</groupId>-->
+			<!--<version>3.4.10</version>-->
+		<!--</dependency>-->
+		
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.5</version>
+		</dependency>
+
+	</dependencies>
+
+</project>

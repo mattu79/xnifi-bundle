@@ -1,0 +1,42 @@
+{
+  "@timestamp": "2018-08-23T06:03:31.655Z",
+  "@metadata": {
+    "beat": "filebeat",
+    "type": "doc",
+    "version": "6.3.2",
+    "topic": "test"
+  },
+  "use": 17,
+  "username": "42c98e81-a69a-11e8-ba5b-439d5d030923",
+  "atTime": 1535004211053,
+  "pid": 18197,
+  "trackId": "42c98e81-a69a-11e8-ba5b-439d5d030923",
+  "uid": "42c98e81-a69a-11e8-ba5b-439d5d030923",
+  "id": "42ca51d0-a69a-11e8-ba5b-439d5d030923",
+  "source": "/root/logs/ags-egg-ts/ags_events.json.log",
+  "date": "2018-08-23 14:03:31,054",
+  "host": {
+    "name": "ags-main"
+  },
+  "ip": "127.0.0.1",
+  "name": "请求性能",
+  "attrs": {
+    "respType": "application/json",
+    "requestPayload": "query articleDetailQuery ($articleid: Long) {\n  article(id: $articleid) {\n    id\n    title\n    author\n    org {\n      id\n      name\n    }\n    ArticleDetail{\n      content\n    }\n  }\n  commentPage(where: {targetId: $articleid}, limit: 5 ,order:\"reverse:createAt\") {\n    count\n    rows {\n      content\n      user {\n        id\n        username\n        avatar\n      }\n      createAt\n    }\n  }\n}",
+    "requestVariables": {
+      "articleid": "1610075413"
+    },
+    "respLength": 6443,
+    "respStatus": 200
+  },
+  "level": "INFO",
+  "input": {
+    "type": "log"
+  },
+  "category": "profile",
+  "content": "请求IP：127.0.0.1，响应状态：200，响应类型：application/json，响应消息大小：6443字节，响应时间 17 ms。",
+  "tags": [],
+  "uuid": "93446f9d0ba342c98683a3c51f6c2cd9",
+  "hostname": "ags-main",
+  "offset": 388218237
+}

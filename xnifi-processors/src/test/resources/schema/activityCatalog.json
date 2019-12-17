@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "name": "nifiRecord",
+  "namespace": "org.apache.nifi",
+  "fields": [{
+    "name": "id",
+    "type": ["null", "string"]
+  }, {
+    "name": "request",
+    "type": ["null", "string"]
+  }]
+}

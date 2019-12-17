@@ -1,0 +1,2 @@
+io.activedata.xnifi2.core.processors.script.ScriptProcessor
+io.activedata.xnifi2.core.processors.sql.BatchSqlProcessor

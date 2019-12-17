@@ -1,0 +1,109 @@
+{
+  "base": {
+    "properties": {
+      "activityGlobalId": {
+        "type": "keyword",
+        "ignore_above": 256
+      },
+      "age": {
+        "type": "keyword",
+        "ignore_above": 32
+      },
+      "birthDate": {
+        "type": "date",
+        "format":"yyyy-MM-dd"
+      },
+      "categoryCode": {
+        "type": "keyword",
+        "ignore_above": 256
+      },
+      "categoryName": {
+        "type": "keyword",
+        "ignore_above": 256
+      },
+      "startTime": {
+        "type": "date",
+        "format":"yyyy-MM-dd"
+      },
+      "endTime": {
+        "type": "date",
+        "format":"yyyy-MM-dd"
+      },
+      "episodeId": {
+        "type": "keyword",
+        "ignore_above": 256
+      },
+      "gender": {
+        "type": "keyword",
+        "ignore_above": 256
+      },
+      "idCardNo": {
+        "type": "keyword",
+        "ignore_above": 256
+      },
+      "idCardType": {
+        "type": "keyword",
+        "ignore_above": 256
+      },
+      "name": {
+        "type": "keyword",
+        "ignore_above": 256
+      },
+      "parentUniqueId": {
+        "type": "keyword",
+        "ignore_above": 256
+      },
+      "personGlobalId": {
+        "type": "keyword",
+        "ignore_above": 256
+      },
+      "processorTime": {
+        "type": "date",
+        "format":"yyyy-MM-dd HH:mm:ss"
+      },
+      "serveDoctorId": {
+        "type": "keyword",
+        "ignore_above": 256
+      },
+      "serveDoctorName": {
+        "type": "text",
+        "analyzer": "ik_max_word",
+        "search_analyzer": "ik_max_word",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "serveOrgCode": {
+        "type": "keyword"
+      },
+      "serveOrgName": {
+        "type": "text",
+        "analyzer": "ik_max_word",
+        "search_analyzer": "ik_max_word",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "sexgenderCode": {
+        "type": "keyword",
+        "ignore_above": 256
+      },
+      "status": {
+        "type": "keyword",
+        "ignore_above": 256
+      },
+      "summary": {
+        "type": "text",
+        "analyzer": "ik_max_word",
+        "search_analyzer": "ik_max_word",
+        "fielddata": true
+      }
+    }
+  }
+}

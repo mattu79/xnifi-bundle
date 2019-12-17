@@ -1,0 +1,39 @@
+{
+  "@timestamp": "2018-08-28T09:25:37.103Z",
+  "@metadata": {
+    "beat": "filebeat",
+    "type": "doc",
+    "version": "6.3.2",
+    "topic": "test"
+  },
+  "use": 7,
+  "category": "profile",
+  "id": "128212c0-aa9a-11e8-83e2-9526a1bb297f",
+  "level": "INFO",
+  "date": "2018-08-28 16:12:14,700",
+  "name": "请求性能",
+  "host": {
+    "name": "ags-main"
+  },
+  "username": 7477568,
+  "content": "请求IP：127.0.0.1，响应状态：400，响应类型：application/json，响应消息大小：128字节，响应时间 7 ms。",
+  "uuid": "cececc3e879646058e4d5e347abcdf10",
+  "uid": 7477568,
+  "pid": 28703,
+  "source": "/root/logs/ags-egg-ts/ags_events.json.log",
+  "input": {
+    "type": "log"
+  },
+  "atTime": 1535443934700,
+  "ip": "127.0.0.1",
+  "tags": [],
+  "trackId": "128212c1-aa9a-11e8-83e2-9526a1bb297f",
+  "hostname": "ags-main",
+  "offset": 523841022,
+  "attrs": {
+    "respStatus": 400,
+    "respType": "application/json",
+    "requestPayload": "{userPage(limit:15,offset:0,where:{mobile:的商务分任务同仁堂,username:{like:\"%小%\"}},order:\"reverse:createAt\") {count,limit,rows {id,status,username,mobile,avatar,games,detail {fans,orgs}}}}",
+    "respLength": 128
+  }
+}

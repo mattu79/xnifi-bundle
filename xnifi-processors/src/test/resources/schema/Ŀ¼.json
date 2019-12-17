@@ -1,0 +1,49 @@
+{
+	"name": "activitySchema",
+	"namespace": "nifi",
+	"type": "record",
+	"fields": [
+		{ "name": "result", "type":{
+				"type":"record",
+				"name":"mailing_result",
+				"fields":[
+					{"name":"activities","type":["null", {"type":"array","items":{
+						"type":"record",
+						"name":"activitiesArray",
+						"fields":[
+							{"name":"activityGlobalId","type":["null", "string"]},
+							{"name":"personGlobalId","type":["null", "string"]},
+							{"name":"name","type":["null", "string"]},
+							{"name":"sexgenderCode","type":["null", "string"]},
+							{"name":"birthDate","type":["null", "string"]},
+							{"name":"idCardType","type":["null", "string"]},
+							{"name":"idCardNo","type":["null", "string"]},
+							{"name":"categoryCode","type":["null", "string"]},
+							{"name":"categoryName","type":["null", "string"]},
+							{"name":"serveOrgCode","type":["null", "string"]},
+							{"name":"serveOrgName","type":["null", "string"]},
+							{"name":"serveDoctorId","type":["null","string"]},
+							{"name":"serveDoctorName","type":["null","string"]},
+							{"name":"startTime","type":["null", "string"]},
+							{"name":"endTime","type":["null","string"]},
+							{"name":"summaryItems","type":["null",{"type":"array","items":{
+								"type":"record",
+								"name":"summaryItemArray",
+								"fields":[
+									{"name":"code","type":["null","string"]},
+									{"name":"value","type":["null","string"]}
+								]
+							}}]}
+						]
+					}}]},
+					{"name":"responseCode","type":["null", "string"]},
+					{"name":"responseMessage","type":["null", "string"]},
+					{"name":"total","type":["null", "string"]},
+					{"name":"offset","type":["null", "string"]},
+					{"name":"limit","type":["null", "string"]}
+				]
+			}
+		},
+		{"name":"status","type":["null", "string"]}
+	]
+}

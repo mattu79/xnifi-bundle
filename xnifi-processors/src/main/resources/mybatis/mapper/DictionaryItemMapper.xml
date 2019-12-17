@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medicloud.dip.nifi.dictionary">
+
+    <resultMap id="DictionaryItemMap" type="com.medicloud.dip.nifi.dictionary.service.DictionaryItem">
+        <id column="DIC_ITEM_ID" property="dictItemId"/>
+        <result column="DIC_CODE" property="dictCode"/>
+        <result column="ITEM_CODE" property="itemCode"/>
+        <result column="ITEM_NAME" property="itemName"/>
+    </resultMap>
+
+    <resultMap id="ActivityFieldMap" type="com.medicloud.dip.nifi.dictionary.service.ActivityField">
+        <id column="AF_ID" property="id"/>
+        <result column="AF_NAME" property="name"/>
+        <result column="AF_SYS_CODE" property="sysCode"/>
+        <result column="AC_SYS_CODE" property="acSysCode"/>
+        <result column="DATA_TYPE" property="dataType"/>
+        <result column="DATA_FORMAT" property="dataFormat"/>
+        <result column="CANDIDATE" property="candidate"/>
+        <result column="TAGS" property="tags"/>
+    </resultMap>
+
+    <resultMap id="HealthTagMap" type="com.medicloud.dip.nifi.dictionary.service.HealthTag">
+        <id column="TAG_ID" property="id"/>
+        <result column="TAG_CATE1" property="cate1"/>
+        <result column="TAG_CATE2" property="cate2"/>
+        <result column="TAG_CATE3" property="cate3"/>
+        <result column="TAG_TYPE" property="type"/>
+        <result column="TAG_RULE" property="rule"/>
+        <result column="TAG_FORMAT" property="format"/>
+        <result column="TAG_VALUE_ENUMS" property="valueEnums"/>
+    </resultMap>
+
+    <resultMap id="AreaMap" type="com.medicloud.dip.nifi.dictionary.service.Area">
+        <id column="AREA_ID" property="id"/>
+        <result column="AREA_CODE" property="code"/>
+        <result column="AREA_SHORT_NAME" property="name"/>
+        <result column="AREA_CODE01" property="provinceCode"/>
+        <result column="AREA_CODE02" property="cityCode"/>
+        <result column="AREA_CODE03" property="countyCode"/>
+        <result column="AREA_CODE04" property="townshipCode"/>
+        <result column="LEVEL_CODE" property="level"/>
+    </resultMap>
+
+    <resultMap id="OrgMap" type="com.medicloud.dip.nifi.dictionary.service.Org">
+        <id column="ORG_ID" property="id"/>
+        <result column="ORG_CODE" property="code"/>
+        <result column="ORG_NAME" property="name"/>
+    </resultMap>
+
+    <select id="queryDictionaryItems" parameterType="java.lang.String" resultMap="DictionaryItemMap">
+		<![CDATA[
+		select 
+			t.DIC_ITEM_ID, t.DIC_CODE, t.ITEM_CODE, t.ITEM_NAME
+		from  PHR_DICTIONARY_ITEM t
+		where t.DIC_CODE=#{dictCode,jdbcType=VARCHAR}
+
+        ]]>
+	</select>
+
+    <select id="queryActivityFields" parameterType="java.lang.String" resultMap="ActivityFieldMap">
+        <![CDATA[
+		select
+		t.AF_ID, t.AF_NAME,t.AF_SYS_CODE,t.AC_SYS_CODE, t.DATA_TYPE, t.DATA_FORMAT, t.CANDIDATE, t.TAGS
+		from  PHR_ACTIVITY_FIELD t
+		where t.AC_SYS_CODE=#{acCode,jdbcType=VARCHAR}
+        ]]>
+    </select>
+
+    <select id="queryTag" parameterType="java.lang.String" resultMap="HealthTagMap">
+        <![CDATA[
+		select
+		t.TAG_ID, t.TAG_CATE1, t.TAG_CATE2, t.TAG_CATE3,t .TAG_TYPE,t.TAG_RULE,t.TAG_FORMAT,t.TAG_VALUE_ENUMS
+		from  PHR_HEALTH_TAG t
+        ]]>
+    </select>
+
+    <select id="queryAllAreas" resultMap="AreaMap">
+        <![CDATA[
+		select
+        t.AREA_ID, t.AREA_CODE, t.AREA_SHORT_NAME, t.AREA_CODE01, t.AREA_CODE02, t.AREA_CODE03, t.AREA_CODE04, t.LEVEL_CODE
+		from  PHR_AREA t
+        ]]>
+    </select>
+
+    <select id="queryAllOrgs" resultMap="OrgMap">
+        <![CDATA[
+		select
+        t.ORG_ID, t.ORG_CODE, t.ORG_NAME
+		from  PHR_ORG t
+        ]]>
+    </select>
+
+    <cache eviction="FIFO" flushInterval="60000" size="1024" readOnly="true"/>
+
+</mapper>

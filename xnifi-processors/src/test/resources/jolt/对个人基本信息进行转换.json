@@ -1,0 +1,53 @@
+[{
+  "operation": "shift",
+  "spec": {
+    "*": {
+      "globalId": "[&1].personGlobalId",
+      "idCardType": "[&1].idCardType",
+      "idCardNo": "[&1].idCardNo",
+      "ehrNo": "[&1].ehrNo",
+      "name": "[&1].name",
+      "genderCode": "[&1].genderCode",
+      "gender": "[&1].gender",
+      "ethnicCode": "[&1].ethnicCode",
+      "ethnicGroup": "[&1].ethnicGroup",
+      "maritalCode": "[&1].maritalCode",
+      "maritalStatus": "[&1].maritalStatus",
+      "livingAddr": "[&1].livingAddr",
+      "livingAreaCode": "[&1].livingAreaCode",
+      "source": "[&1].source",
+      "birthDate": "[&1].birthDate",
+      "tags": {
+        "IDCARDNO": "[&2].idcard",
+        "MOBILE": "[&2].mobile",
+        "GROUP": "[&2].group",
+        "AGE_GROUP": "[&2].ageGroup",
+        "POPULAR_GROUP": "popularGroup",
+        "SERV_ORG": "&[2].servOrg",
+        "SERV_HOSP_NAME": "[&2].servHospName",
+        "LIFE_PHASE": "[&2].lifePhase",
+        "CLINIC_DEPT_NAME": "[&2].clinicDeptName",
+        "DISEASE_NAME": "[&2].diseaseName",
+        "DRUG_NAME": "[&2].drugName",
+        "CLINIC_FEES": "[&2].clinicFees",
+        "ADVERSE_DRUG_REACTION": "[&2].adverseDrugReaction",
+        "ALLERGY_DRUG": "[&2].allergyDrug",
+        "ALLERGY_HISTORY": "[&2].allergyHistory",
+        "MEDICAL_HISTORY": "[&2].medicalHistory",
+        "FAMILY_HISTORY": "[&2].familyHistory",
+        "OPERATION_HISTORY": "[&2].operationHistory",
+        "BLOOD_HISTORY": "[&2].bloodHistory",
+        "PRESENT_HISTORY": "[&2].presentHistory",
+        "PAST_HISTORY": "[&2].pastHistory",
+        "INFECTIONUS_HISTORY": "infectionusHistory"
+      }
+    }
+  }
+}, {
+  "operation": "cardinality",
+  "spec": {
+    "*": {
+      "ageGroup": "ONE"
+    }
+  }
+}]
