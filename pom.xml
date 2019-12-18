@@ -9,9 +9,9 @@
     <description>Extened Nifi Platform.</description>
 
     <properties>
-        <nifi.version>1.9.2</nifi.version>
+        <nifi.version>1.10.0</nifi.version>
         <cxf.version>3.1.4</cxf.version>
-        <xnifi.version>1.2.3</xnifi.version>
+        <xnifi.version>1.2.4</xnifi.version>
     </properties>
 
     <modules>
