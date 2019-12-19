@@ -57,7 +57,7 @@
 			<groupId>org.apache.nifi</groupId>
 			<artifactId>nifi-record</artifactId>
 			<version>${nifi.version}</version>
-			<!--<scope>provided</scope>-->
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -77,6 +77,13 @@
 		<dependency>
 			<groupId>org.apache.nifi</groupId>
 			<artifactId>nifi-utils</artifactId>
+			<version>${nifi.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+        <dependency>
+            <groupId>org.apache.nifi</groupId>
+            <artifactId>nifi-lookup-service-api</artifactId>
 			<version>${nifi.version}</version>
 			<scope>compile</scope>
 		</dependency>
@@ -156,17 +163,17 @@
 			<!--<version>3.6.0</version>-->
 		<!--</dependency>-->
 
-		<!--<dependency>-->
-			<!--<groupId>com.squareup.okhttp3</groupId>-->
-			<!--<artifactId>okhttp</artifactId>-->
-			<!--<version>3.3.1</version>-->
-		<!--</dependency>-->
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>3.3.1</version>
+		</dependency>
 
-		<!--<dependency>-->
-			<!--<groupId>org.elasticsearch</groupId>-->
-			<!--<artifactId>elasticsearch</artifactId>-->
-			<!--<version>${es.version}</version>-->
-		<!--</dependency>-->
+		<dependency>
+			<groupId>org.elasticsearch</groupId>
+			<artifactId>elasticsearch</artifactId>
+			<version>${es.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -319,11 +326,11 @@
             <!--<version>1.4.0</version>-->
         <!--</dependency>-->
 
-        <!--<dependency>-->
-            <!--<groupId>org.apache.nifi</groupId>-->
-            <!--<artifactId>nifi-proxy-configuration-api</artifactId>-->
-            <!--<version>1.7.0</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.apache.nifi</groupId>
+            <artifactId>nifi-proxy-configuration-api</artifactId>
+            <version>${nifi.version}</version>
+        </dependency>
 
 	</dependencies>
 </project>

@@ -1,8 +1,8 @@
 package io.activedata.xnifi.processors.sql;
 
 import com.alibaba.fastjson.JSON;
-import io.activedata.xnifi.DBCPServiceSimpleImpl;
-import io.activedata.xnifi2.core.processors.sql.BatchSelectProcessor;
+import io.activedata.xnifi.test.support.DBCPServiceSimpleImpl;
+import io.activedata.xnifi2.processors.sql.SelectProcessor;
 import org.apache.nifi.reporting.InitializationException;
 import org.apache.nifi.util.MockFlowFile;
 import org.apache.nifi.util.TestRunner;
@@ -42,13 +42,13 @@ public class BatchSelectProcessorTests {
 
     @Before
     public void setup() throws InitializationException {
-        runner = TestRunners.newTestRunner(BatchSelectProcessor.class);
-        DBCPServiceSimpleImpl cpService = new DBCPServiceSimpleImpl();
+        runner = TestRunners.newTestRunner(SelectProcessor.class);
+        DBCPServiceSimpleImpl cpService = new DBCPServiceSimpleImpl("test.db");
         runner.addControllerService("dbcp", cpService);
         runner.enableControllerService(cpService);
-        runner.setProperty(BatchSelectProcessor.PROP_DBCP_SERVICE, "dbcp");
-        runner.setProperty(BatchSelectProcessor.PROP_SQL, TEST_TABLE_SQL);
-        runner.setProperty(BatchSelectProcessor.PROP_RECORD_OUTPUT_BUILDER, "attributes.test = 'xxx';");
+        runner.setProperty(SelectProcessor.PROP_DBCP_SERVICE, "dbcp");
+        runner.setProperty(SelectProcessor.PROP_SQL, TEST_TABLE_SQL);
+        runner.setProperty(SelectProcessor.PROP_RECORD_OUTPUT_BUILDER, "attributes.test = 'xxx';");
     }
 
     /**
@@ -56,12 +56,12 @@ public class BatchSelectProcessorTests {
      */
     @Test
     public void test1() throws UnsupportedEncodingException {
-        runner.setProperty(BatchSelectProcessor.PROP_SQL, "SELECT 1.5 AS `use`, 10001 AS pid \n" +
+        runner.setProperty(SelectProcessor.PROP_SQL, "SELECT 1.5 AS `use`, 10001 AS pid \n" +
                 "FROM DUAL");
         runner.enqueue(TEST_JSON);
         runner.run();
-        runner.assertAllFlowFilesTransferred(BatchSelectProcessor.REL_SUCCESS, 1);
-        List<MockFlowFile> flowFiles = runner.getFlowFilesForRelationship(BatchSelectProcessor.REL_SUCCESS);
+        runner.assertAllFlowFilesTransferred(SelectProcessor.REL_SUCCESS, 1);
+        List<MockFlowFile> flowFiles = runner.getFlowFilesForRelationship(SelectProcessor.REL_SUCCESS);
         MockFlowFile flowFile = flowFiles.get(0);
         flowFile.assertContentEquals("");
         String json = new String(flowFile.toByteArray(), "UTF-8");
@@ -83,12 +83,12 @@ public class BatchSelectProcessorTests {
     @Test
     public void test2() throws UnsupportedEncodingException {
         String sql = "INSERT INTO TEST_TABLE(`PID`, `USE`) VALUES(:pid, :use)";
-        runner.setProperty(BatchSelectProcessor.PROP_SQL, sql);
-        runner.setProperty(BatchSelectProcessor.PROP_SQL_MODE, "INSERT/UPDATE/DELETE");
+        runner.setProperty(SelectProcessor.PROP_SQL, sql);
+        runner.setProperty(SelectProcessor.PROP_SQL_MODE, "INSERT/UPDATE/DELETE");
         runner.enqueue("{}");
         runner.run();
-        runner.assertAllFlowFilesTransferred(BatchSelectProcessor.REL_SUCCESS, 1);
-        List<MockFlowFile> flowFiles = runner.getFlowFilesForRelationship(BatchSelectProcessor.REL_SUCCESS);
+        runner.assertAllFlowFilesTransferred(SelectProcessor.REL_SUCCESS, 1);
+        List<MockFlowFile> flowFiles = runner.getFlowFilesForRelationship(SelectProcessor.REL_SUCCESS);
         MockFlowFile flowFile = flowFiles.get(0);
         String json = new String(flowFile.toByteArray(), "UTF-8");
         List<Map> records = JSON.parseArray(json, Map.class);
@@ -104,12 +104,12 @@ public class BatchSelectProcessorTests {
     @Test
     public void test3() throws UnsupportedEncodingException {
         String sql = "UPDATE TEST_TABLE SET `USE`= :use WHERE PID = :pid";
-        runner.setProperty(BatchSelectProcessor.PROP_SQL, sql);
-        runner.setProperty(BatchSelectProcessor.PROP_SQL_MODE, "INSERT/UPDATE/DELETE");
+        runner.setProperty(SelectProcessor.PROP_SQL, sql);
+        runner.setProperty(SelectProcessor.PROP_SQL_MODE, "INSERT/UPDATE/DELETE");
         runner.enqueue(TEST_JSON);
         runner.run();
-        runner.assertAllFlowFilesTransferred(BatchSelectProcessor.REL_SUCCESS, 1);
-        List<MockFlowFile> flowFiles = runner.getFlowFilesForRelationship(BatchSelectProcessor.REL_SUCCESS);
+        runner.assertAllFlowFilesTransferred(SelectProcessor.REL_SUCCESS, 1);
+        List<MockFlowFile> flowFiles = runner.getFlowFilesForRelationship(SelectProcessor.REL_SUCCESS);
         MockFlowFile flowFile = flowFiles.get(0);
         String json = new String(flowFile.toByteArray(), "UTF-8");
         System.err.println(json);
@@ -126,11 +126,11 @@ public class BatchSelectProcessorTests {
     @Test
     public void test4() throws UnsupportedEncodingException {
         String sql = "SELECT * FROM TEST_TABLE LIMIT 1";
-        runner.setProperty(BatchSelectProcessor.PROP_SQL, sql);
+        runner.setProperty(SelectProcessor.PROP_SQL, sql);
         runner.enqueue(TEST_JSON);
         runner.run();
-        runner.assertAllFlowFilesTransferred(BatchSelectProcessor.REL_SUCCESS, 1);
-        List<MockFlowFile> flowFiles = runner.getFlowFilesForRelationship(BatchSelectProcessor.REL_SUCCESS);
+        runner.assertAllFlowFilesTransferred(SelectProcessor.REL_SUCCESS, 1);
+        List<MockFlowFile> flowFiles = runner.getFlowFilesForRelationship(SelectProcessor.REL_SUCCESS);
         MockFlowFile flowFile = flowFiles.get(0);
         String json = new String(flowFile.toByteArray(), "UTF-8");
         System.err.println(json);

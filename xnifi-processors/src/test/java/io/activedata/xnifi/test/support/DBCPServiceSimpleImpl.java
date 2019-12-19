@@ -14,39 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.activedata.xnifi;
+package io.activedata.xnifi.test.support;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-import io.activedata.xnifi2.core.services.JdbcConnectionPoolService;
 import org.apache.nifi.controller.AbstractControllerService;
 import org.apache.nifi.dbcp.DBCPService;
 import org.apache.nifi.processor.exception.ProcessException;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 /**
  * Simple implementation only for GenerateTableFetch processor testing.
  */
-public class DBCPServiceSimpleImpl extends AbstractControllerService implements JdbcConnectionPoolService {
+public class DBCPServiceSimpleImpl extends AbstractControllerService implements DBCPService {
 
-    private DataSource dataSource;
+    private String databaseLocation;
 
     public DBCPServiceSimpleImpl() {
-        HikariConfig hikariConfig = new HikariConfig();
+        this("test.db");
+    }
 
-        hikariConfig.setDriverClassName("com.mysql.jdbc.Driver");
-        hikariConfig.setJdbcUrl("jdbc:mysql://127.0.0.1:3306/xnifi_tests?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8");
-        hikariConfig.setUsername("root");
-        hikariConfig.setPassword("123456");
-        hikariConfig.setMinimumIdle(5);
-        hikariConfig.setMaximumPoolSize(10);
-        hikariConfig.setConnectionTimeout(5000);
-
-        dataSource = new HikariDataSource(hikariConfig);
+    public DBCPServiceSimpleImpl(final String databaseLocation) {
+        this.databaseLocation = databaseLocation;
     }
 
     @Override
@@ -57,14 +46,10 @@ public class DBCPServiceSimpleImpl extends AbstractControllerService implements 
     @Override
     public Connection getConnection() throws ProcessException {
         try {
-            return dataSource.getConnection();
-        } catch (SQLException e) {
-            throw new ProcessException(e);
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            return DriverManager.getConnection("jdbc:derby:" + databaseLocation + ";create=true");
+        } catch (final Exception e) {
+            throw new ProcessException("getConnection failed: " + e);
         }
-    }
-
-    @Override
-    public DataSource getDataSource() {
-        return dataSource;
     }
 }

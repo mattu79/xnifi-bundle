@@ -82,7 +82,7 @@ public class SyncInputStreamCallback implements InputStreamCallback {
 
     @Override
     public void process(InputStream in) throws IOException {
-        try (final RecordReader reader = readerFactory.createRecordReader(attributes, in, logger)) {
+        try (final RecordReader reader = readerFactory.createRecordReader(attributes, in, -1, logger)) {
             initErrorSchema(reader.getSchema());
 
             try {

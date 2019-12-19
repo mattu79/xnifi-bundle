@@ -4,23 +4,29 @@
 
     <groupId>io.activedata</groupId>
     <artifactId>xnifi-bundle</artifactId>
-    <version>${xnifi.version}</version>
+    <version>1.2.4</version>
     <packaging>pom</packaging>
     <description>Extened Nifi Platform.</description>
 
     <properties>
         <nifi.version>1.10.0</nifi.version>
         <cxf.version>3.1.4</cxf.version>
-        <xnifi.version>1.2.4</xnifi.version>
     </properties>
 
     <modules>
         <module>xnifi-processors</module>
-        <module>xnifi-neo4j-processors</module>
+        <!--<module>xnifi-neo4j-processors</module>-->
         <module>xnifi-nar</module>
     </modules>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.26</version>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

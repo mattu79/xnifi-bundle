@@ -2,8 +2,8 @@ package io.activedata.xnifi.processors.generate.dao.jdbc;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import io.activedata.xnifi.DBCPServiceSimpleImpl;
 import io.activedata.xnifi.processors.generate.GenerateSequence;
+import io.activedata.xnifi.test.support.DBCPServiceSimpleImpl;
 import org.apache.commons.io.IOUtils;
 import org.apache.nifi.dbcp.DBCPService;
 import org.apache.nifi.reporting.InitializationException;

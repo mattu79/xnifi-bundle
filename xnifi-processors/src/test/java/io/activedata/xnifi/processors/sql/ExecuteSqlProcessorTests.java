@@ -1,8 +1,8 @@
 package io.activedata.xnifi.processors.sql;
 
 import com.alibaba.fastjson.JSON;
-import io.activedata.xnifi.DBCPServiceSimpleImpl;
-import io.activedata.xnifi2.core.processors.sql.BatchSqlProcessor;
+import io.activedata.xnifi.test.support.DBCPServiceSimpleImpl;
+import io.activedata.xnifi2.processors.sql.BatchSqlProcessor;
 import org.apache.nifi.reporting.InitializationException;
 import org.apache.nifi.util.MockFlowFile;
 import org.apache.nifi.util.TestRunner;
@@ -43,7 +43,7 @@ public class ExecuteSqlProcessorTests {
     @Before
     public void setup() throws InitializationException {
         runner = TestRunners.newTestRunner(BatchSqlProcessor.class);
-        DBCPServiceSimpleImpl cpService = new DBCPServiceSimpleImpl();
+        DBCPServiceSimpleImpl cpService = new DBCPServiceSimpleImpl("test.db");
         runner.addControllerService("dbcp", cpService);
         runner.enableControllerService(cpService);
         runner.setProperty(BatchSqlProcessor.PROP_DBCP_SERVICE, "dbcp");

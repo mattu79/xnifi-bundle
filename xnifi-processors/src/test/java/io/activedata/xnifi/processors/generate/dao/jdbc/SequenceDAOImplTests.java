@@ -1,7 +1,7 @@
 package io.activedata.xnifi.processors.generate.dao.jdbc;
 
-import io.activedata.xnifi.DBCPServiceSimpleImpl;
 import io.activedata.xnifi.processors.generate.sequence.Sequence;
+import io.activedata.xnifi.test.support.DBCPServiceSimpleImpl;
 import org.apache.nifi.dbcp.DBCPService;
 import org.apache.nifi.util.file.FileUtils;
 import org.junit.*;

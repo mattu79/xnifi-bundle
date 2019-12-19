@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>io.activedata</groupId>
 		<artifactId>xnifi-bundle</artifactId>
-		<version>${xnifi.version}</version>
+		<version>1.2.4</version>
 	</parent>
 
 	<artifactId>xnifi-nar</artifactId>
@@ -37,11 +37,10 @@
 			<version>${project.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>io.activedata</groupId>
-			<artifactId>xnifi-neo4j-processors</artifactId>
-			<version>${project.version}</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>io.activedata</groupId>-->
+			<!--<artifactId>xnifi-neo4j-processors</artifactId>-->
+		<!--</dependency>-->
 
 		<!--<dependency>-->
 			<!--<artifactId>zookeeper</artifactId>-->

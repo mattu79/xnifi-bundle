@@ -8,6 +8,7 @@ import org.apache.nifi.components.PropertyDescriptor;
 import org.apache.nifi.components.ValidationContext;
 import org.apache.nifi.components.ValidationResult;
 import org.apache.nifi.controller.ControllerServiceInitializationContext;
+import org.apache.nifi.flowfile.FlowFile;
 import org.apache.nifi.logging.ComponentLog;
 import org.apache.nifi.reporting.InitializationException;
 import org.apache.nifi.schema.access.SchemaNotFoundException;
@@ -46,7 +47,13 @@ public class AvroRecordWriterFactory implements RecordSetWriterFactory {
     }
 
     @Override
-    public RecordSetWriter createWriter(ComponentLog logger, RecordSchema recordSchema, OutputStream out) throws SchemaNotFoundException, IOException {
+    public RecordSetWriter createWriter(ComponentLog logger, RecordSchema recordSchema, OutputStream out, Map<String, String> variables) throws SchemaNotFoundException, IOException {
+        Schema schema = AvroTypeUtil.extractAvroSchema(recordSchema);
+        return new WriteAvroResultWithSchema(schema, out, CodecFactory.snappyCodec());
+    }
+
+    @Override
+    public RecordSetWriter createWriter(ComponentLog logger, RecordSchema recordSchema, OutputStream out, FlowFile flowFile) throws SchemaNotFoundException, IOException {
         Schema schema = AvroTypeUtil.extractAvroSchema(recordSchema);
         return new WriteAvroResultWithSchema(schema, out, CodecFactory.snappyCodec());
     }

@@ -4,6 +4,7 @@ import org.apache.nifi.components.PropertyDescriptor;
 import org.apache.nifi.components.ValidationContext;
 import org.apache.nifi.components.ValidationResult;
 import org.apache.nifi.controller.ControllerServiceInitializationContext;
+import org.apache.nifi.flowfile.FlowFile;
 import org.apache.nifi.json.OutputGrouping;
 import org.apache.nifi.json.WriteJsonResult;
 import org.apache.nifi.logging.ComponentLog;
@@ -49,7 +50,13 @@ public class JsonRecordWriterFactory implements RecordSetWriterFactory {
     }
 
     @Override
-    public RecordSetWriter createWriter(ComponentLog logger, RecordSchema schema, OutputStream out) throws SchemaNotFoundException, IOException {
+    public RecordSetWriter createWriter(ComponentLog logger, RecordSchema schema, OutputStream out, Map<String, String> variables) throws SchemaNotFoundException, IOException {
+        return new WriteJsonResult(logger, schema, new NopSchemaAccessWriter(), out, false, NullSuppression.ALWAYS_SUPPRESS,
+                OutputGrouping.OUTPUT_ONELINE, FORMAT_DATE, FORMAT_TIME, FORMAT_TIMESTAMP);
+    }
+
+    @Override
+    public RecordSetWriter createWriter(ComponentLog logger, RecordSchema schema, OutputStream out, FlowFile flowFile) throws SchemaNotFoundException, IOException {
         return new WriteJsonResult(logger, schema, new NopSchemaAccessWriter(), out, false, NullSuppression.ALWAYS_SUPPRESS,
                 OutputGrouping.OUTPUT_ONELINE, FORMAT_DATE, FORMAT_TIME, FORMAT_TIMESTAMP);
     }

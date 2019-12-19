@@ -88,7 +88,7 @@ public class RecordsProcessCallback implements ProcessCallback {
 
     @Override
     public void process(InputStream in) throws IOException {
-        try (final RecordReader reader = readerFactory.createRecordReader(attributes, in, logger)) {
+        try (final RecordReader reader = readerFactory.createRecordReader(attributes, in, -1, logger)) {
             final RecordSchema writeSchema = writerFactory.getSchema(attributes, reader.getSchema());
                 Record record;
                 while ((record = reader.nextRecord()) != null) {

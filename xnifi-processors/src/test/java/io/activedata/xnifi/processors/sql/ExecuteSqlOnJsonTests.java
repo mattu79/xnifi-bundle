@@ -1,7 +1,7 @@
 package io.activedata.xnifi.processors.sql;
 
 import com.alibaba.fastjson.JSON;
-import io.activedata.xnifi.DBCPServiceSimpleImpl;
+import io.activedata.xnifi.test.support.DBCPServiceSimpleImpl;
 import org.apache.nifi.dbcp.DBCPService;
 import org.apache.nifi.reporting.InitializationException;
 import org.apache.nifi.util.MockFlowFile;
@@ -49,7 +49,7 @@ public class ExecuteSqlOnJsonTests {
     @Before
     public void setup() throws InitializationException {
         runner = TestRunners.newTestRunner(ExecuteSqlOnJson.class);
-        dbcp = spy(new DBCPServiceSimpleImpl()); // 连接的mysql
+        dbcp = spy(new DBCPServiceSimpleImpl("test.db")); // 连接的mysql
         runner.addControllerService("dbcp", dbcp);
         runner.enableControllerService(dbcp);
         runner.setProperty(ExecuteSqlOnJson.PROP_DBCP_SERVICE, "dbcp");

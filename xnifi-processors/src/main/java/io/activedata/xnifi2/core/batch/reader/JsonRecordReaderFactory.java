@@ -4,6 +4,7 @@ import org.apache.nifi.components.PropertyDescriptor;
 import org.apache.nifi.components.ValidationContext;
 import org.apache.nifi.components.ValidationResult;
 import org.apache.nifi.controller.ControllerServiceInitializationContext;
+import org.apache.nifi.flowfile.FlowFile;
 import org.apache.nifi.logging.ComponentLog;
 import org.apache.nifi.reporting.InitializationException;
 import org.apache.nifi.schema.access.SchemaNotFoundException;
@@ -18,8 +19,14 @@ import java.util.List;
 import java.util.Map;
 
 public class JsonRecordReaderFactory implements RecordReaderFactory {
+
     @Override
-    public RecordReader createRecordReader(Map<String, String> variables, InputStream in, ComponentLog logger) throws MalformedRecordException, IOException, SchemaNotFoundException {
+    public RecordReader createRecordReader(FlowFile flowFile, InputStream in, ComponentLog logger) throws MalformedRecordException, IOException, SchemaNotFoundException {
+        return new JsonReaderWithEmbeddedSchema(in, logger);
+    }
+
+    @Override
+    public RecordReader createRecordReader(Map<String, String> variables, InputStream in, long inputLength, ComponentLog logger) throws MalformedRecordException, IOException, SchemaNotFoundException {
         return new JsonReaderWithEmbeddedSchema(in, logger);
     }
 
@@ -52,4 +59,6 @@ public class JsonRecordReaderFactory implements RecordReaderFactory {
     public String getIdentifier() {
         return "JsonRecordReaderFactory";
     }
+
+
 }
