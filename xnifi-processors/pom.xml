@@ -43,7 +43,7 @@
 			<groupId>org.apache.nifi</groupId>
 			<artifactId>nifi-record-serialization-services</artifactId>
             <version>${nifi.version}</version>
-			<scope>provided</scope>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
