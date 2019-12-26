@@ -1,4 +1,4 @@
-package io.activedata.xnifi2.enrich;
+package io.activedata.xnifi2.processors.enrich;
 
 import io.activedata.xnifi.test.support.DBCPServiceSimpleImpl;
 import io.activedata.xnifi2.sql2o.Sql2oHelper;

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package io.activedata.xnifi2.enrich;
+package io.activedata.xnifi2.processors.enrich;
 
 import io.activedata.xnifi2.core.batch.AbstractBuilderSupportProcessor;
 import io.activedata.xnifi2.core.batch.Input;

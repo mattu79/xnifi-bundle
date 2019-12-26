@@ -1,4 +1,4 @@
-package io.activedata.xnifi2.enrich;
+package io.activedata.xnifi2.processors.enrich;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import io.activedata.xnifi2.core.batch.Input;
@@ -127,9 +127,9 @@ public class SqlLookupService extends AbstractControllerService implements Looku
                 foundRecord = new MapRecord(this.schema, Sql2oHelper.fetchFirstResult(sql2o, lookupSql, input, attributes));
                 if (foundRecord != null) {
                     cache.put(key, foundRecord);
-                    LOGGER.warn("读取[{}]对应的记录并放入到缓存中。", key);
+                    LOGGER.debug("读取[{}]对应的记录并放入到缓存中。", key);
                 }else {
-                    LOGGER.warn("没有找到[{}]对应的记录。", key);
+                    LOGGER.debug("没有找到[{}]对应的记录。", key);
                 }
             }
 

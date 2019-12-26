@@ -1,1 +1,1 @@
-io.activedata.xnifi2.processors.standard.LookupRecord
+io.activedata.xnifi2.processors.enrich.EnrichRecord

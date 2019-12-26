@@ -1,4 +1,4 @@
-package io.activedata.xnifi2.enrich;
+package io.activedata.xnifi2.processors.enrich;
 
 import io.activedata.xnifi2.core.batch.Input;
 import org.apache.nifi.controller.ControllerService;
