@@ -103,14 +103,12 @@ public class EnrichRecord extends AbstractBuilderSupportProcessor {
                 matchedUnmatchedRels.add(REL_UNMATCHED);
                 matchedUnmatchedRels.add(REL_FAILURE);
                 this.rels = matchedUnmatchedRels;
-
                 this.routeToMatchedUnmatched = true;
             } else {
                 final Set<Relationship> successRels = new HashSet<>();
                 successRels.add(REL_SUCCESS);
                 successRels.add(REL_FAILURE);
                 this.rels = successRels;
-
                 this.routeToMatchedUnmatched = false;
             }
         }
@@ -118,7 +116,7 @@ public class EnrichRecord extends AbstractBuilderSupportProcessor {
 
     @Override
     public Set<Relationship> getRelationships() {
-        return super.getRelationships();
+        return this.rels;
     }
 
     @Override
