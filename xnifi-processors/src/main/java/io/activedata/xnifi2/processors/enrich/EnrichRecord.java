@@ -76,12 +76,12 @@ public class EnrichRecord extends AbstractBuilderSupportProcessor {
             .required(true)
             .build();
 
-    public Relationship REL_MATCHED = new Relationship.Builder()
+    public static final Relationship REL_MATCHED = new Relationship.Builder()
             .name("matched")
             .description("匹配队列")
             .build();
 
-    public Relationship REL_UNMATCHED = new Relationship.Builder()
+    public static final Relationship REL_UNMATCHED = new Relationship.Builder()
             .name("unmatched")
             .description("为匹配队列")
             .build();
@@ -116,6 +116,13 @@ public class EnrichRecord extends AbstractBuilderSupportProcessor {
 
     @Override
     public Set<Relationship> getRelationships() {
+        if (this.rels == null) {
+            final Set<Relationship> successRels = new HashSet<>();
+            successRels.add(REL_SUCCESS);
+            successRels.add(REL_FAILURE);
+            this.rels = successRels;
+            this.routeToMatchedUnmatched = false;
+        }
         return this.rels;
     }
 
@@ -139,7 +146,7 @@ public class EnrichRecord extends AbstractBuilderSupportProcessor {
 
         lookupService = context.getProperty(PROP_LOOKUP_SERVICE).asControllerService(LookupService.class);
         routingStrategy = context.getProperty(PROP_ROUTING_STRATEGY).getValue();
-        this.routeToMatchedUnmatched = StringUtils.equals(routingStrategy, ROUTE_TO_MATCHED_UNMATCHED.getValue());
+        routeToMatchedUnmatched = StringUtils.equals(routingStrategy, ROUTE_TO_MATCHED_UNMATCHED.getValue());
     }
 
     @Override

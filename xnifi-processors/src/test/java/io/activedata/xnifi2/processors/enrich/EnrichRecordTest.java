@@ -51,8 +51,9 @@ public class EnrichRecordTest {
         testRunner.addControllerService("lookup-service", sqlLookupService);
         testRunner.setProperty(EnrichRecord.PROP_INPUT_RECORD_TYPE, EnrichRecord.RECORD_TYPE_JSON);
         testRunner.setProperty(EnrichRecord.PROP_LOOKUP_SERVICE, "lookup-service");
-        testRunner.setProperty(sqlLookupService, SqlLookupService.DBCP_SERVICE, "dbcp");
-        testRunner.setProperty(sqlLookupService, SqlLookupService.LOOKUP_SQL, "SELECT * FROM ags_match WHERE id = :id");
+        testRunner.setProperty(EnrichRecord.PROP_ROUTING_STRATEGY, EnrichRecord.ROUTE_TO_MATCHED_UNMATCHED);
+        testRunner.setProperty(sqlLookupService, SqlLookupService.PROP_DBCP_SERVICE, "dbcp");
+        testRunner.setProperty(sqlLookupService, SqlLookupService.PROP_LOOKUP_SQL, "SELECT * FROM ags_match WHERE id = :id");
         testRunner.enableControllerService(dbcp);
         testRunner.enableControllerService(sqlLookupService);
     }
@@ -62,8 +63,8 @@ public class EnrichRecordTest {
         testRunner.enqueue("[{\"id\": 3},{\"id\": 1}, {\"id\": 3}]");
         testRunner.run();
 
-        testRunner.assertAllFlowFilesTransferred(EnrichRecord.REL_SUCCESS, 1);
-        List<MockFlowFile> mockFlowFiles = testRunner.getFlowFilesForRelationship(EnrichRecord.REL_SUCCESS);
+        testRunner.assertAllFlowFilesTransferred(EnrichRecord.REL_MATCHED, 1);
+        List<MockFlowFile> mockFlowFiles = testRunner.getFlowFilesForRelationship(EnrichRecord.REL_MATCHED);
         MockFlowFile mockFlowFile = mockFlowFiles.get(0);
         mockFlowFile.assertContentEquals("");
     }

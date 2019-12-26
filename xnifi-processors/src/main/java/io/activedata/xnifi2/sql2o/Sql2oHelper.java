@@ -94,6 +94,8 @@ public abstract class Sql2oHelper {
                 fields.add(createField(column.getName(), column.getType()));
             }
             return new SimpleRecordSchema(fields);
+        }catch (Exception e){
+            throw e;
         }
     }
 

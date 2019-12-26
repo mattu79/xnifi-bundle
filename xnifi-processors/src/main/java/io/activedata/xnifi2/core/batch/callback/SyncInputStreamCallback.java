@@ -127,7 +127,6 @@ public class SyncInputStreamCallback implements InputStreamCallback {
     }
 
     protected Tuple<Relationship, Record> processRecord(Map<String, String> attributes, Record inputRecord, FlowFile flowFile, ProcessContext context) throws Exception {
-
         Input input = new Input(inputRecord);
         Tuple<Relationship, Output> result = processor.processRecord(attributes, input, flowFile, context);
         initSchemas(input, result.getValue());
@@ -137,11 +136,11 @@ public class SyncInputStreamCallback implements InputStreamCallback {
             inheritResult.putAll(result.getValue());
             inheritResult.put(FIELD_AT_TIME, Dates.timestamp());
             MapRecord outputRecord = new MapRecord(this.outputSchema, inheritResult);
-            return new Tuple<>(processor.REL_SUCCESS, outputRecord);
+            return new Tuple<>(result.getKey(), outputRecord);
         } else {
             result.getValue().put(FIELD_AT_TIME, Dates.timestamp());
             MapRecord outputRecord = new MapRecord(this.outputSchema, result.getValue());
-            return new Tuple<>(processor.REL_SUCCESS, outputRecord);
+            return new Tuple<>(result.getKey(), outputRecord);
         }
     }
 
@@ -208,6 +207,7 @@ public class SyncInputStreamCallback implements InputStreamCallback {
             attributes.putAll(writeResult.getAttributes());
 
             childFlowFile = session.putAllAttributes(childFlowFile, attributes);
+            System.err.println("==============================" + childFlowFile);
             session.transfer(childFlowFile, relationship);
             session.adjustCounter("Records Processed", writeResult.getRecordCount(), false);
             session.adjustCounter("Records Routed to " + relationship.getName(), writeResult.getRecordCount(), false);
