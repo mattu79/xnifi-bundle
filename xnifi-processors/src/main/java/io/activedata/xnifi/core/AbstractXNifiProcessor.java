@@ -41,8 +41,10 @@ public abstract class AbstractXNifiProcessor extends AbstractSessionFactoryProce
     protected void rollbackForException(ProcessContext context, ProcessSession session, Exception t, boolean doYield) {
         ComponentLog logger = getLogger();
         if (logger.isDebugEnabled()) {
+            t.printStackTrace();
             getLogger().error("处理数据失败[{}]，将回滚会话操作。", new Object[]{ExceptionUtils.getStackTrace(t)});
         } else {
+            t.printStackTrace();
             getLogger().error("处理数据失败[{}]，将回滚会话操作。", new Object[]{ExceptionUtils.getMessage(t)});
         }
         session.rollback(true); //回滚处理的FlowFile，这里惩罚没生效

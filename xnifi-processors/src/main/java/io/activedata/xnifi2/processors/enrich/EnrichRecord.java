@@ -130,6 +130,7 @@ public class EnrichRecord extends AbstractBuilderSupportProcessor {
     protected List<PropertyDescriptor> getSupportedPropertyDescriptors() {
         List<PropertyDescriptor> props = new ArrayList<PropertyDescriptor>();
         props.add(PROP_LOOKUP_SERVICE);
+        props.add(PROP_IS_ASYNC_MODE);
         props.add(PROP_ROUTING_STRATEGY);
         props.add(PROP_OUTPUT_RECORD_STRATEGY);
         props.add(PROP_INPUT_RECORD_TYPE);

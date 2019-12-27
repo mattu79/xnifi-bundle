@@ -52,6 +52,7 @@ public class EnrichRecordTest {
         testRunner.setProperty(EnrichRecord.PROP_INPUT_RECORD_TYPE, EnrichRecord.RECORD_TYPE_JSON);
         testRunner.setProperty(EnrichRecord.PROP_LOOKUP_SERVICE, "lookup-service");
         testRunner.setProperty(EnrichRecord.PROP_ROUTING_STRATEGY, EnrichRecord.ROUTE_TO_MATCHED_UNMATCHED);
+        testRunner.setProperty(EnrichRecord.PROP_IS_ASYNC_MODE, "true");
         testRunner.setProperty(sqlLookupService, SqlLookupService.PROP_DBCP_SERVICE, "dbcp");
         testRunner.setProperty(sqlLookupService, SqlLookupService.PROP_LOOKUP_SQL, "SELECT * FROM ags_match WHERE id = :id");
         testRunner.enableControllerService(dbcp);

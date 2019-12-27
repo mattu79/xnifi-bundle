@@ -207,7 +207,6 @@ public class SyncInputStreamCallback implements InputStreamCallback {
             attributes.putAll(writeResult.getAttributes());
 
             childFlowFile = session.putAllAttributes(childFlowFile, attributes);
-            System.err.println("==============================" + childFlowFile);
             session.transfer(childFlowFile, relationship);
             session.adjustCounter("Records Processed", writeResult.getRecordCount(), false);
             session.adjustCounter("Records Routed to " + relationship.getName(), writeResult.getRecordCount(), false);

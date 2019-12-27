@@ -3,6 +3,7 @@ package io.activedata.xnifi2.core.batch;
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Charsets;
 import io.activedata.xnifi.core.AbstractXNifiProcessor;
+import io.activedata.xnifi2.core.batch.callback.AsyncInputStreamCallback;
 import io.activedata.xnifi2.core.batch.callback.SyncInputStreamCallback;
 import io.activedata.xnifi2.core.batch.reader.AvroRecordReaderFactory;
 import io.activedata.xnifi2.core.batch.reader.JsonRecordReaderFactory;
@@ -13,7 +14,6 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.nifi.components.AllowableValue;
 import org.apache.nifi.components.PropertyDescriptor;
 import org.apache.nifi.flowfile.FlowFile;
-import org.apache.nifi.flowfile.attributes.CoreAttributes;
 import org.apache.nifi.logging.ComponentLog;
 import org.apache.nifi.processor.ProcessContext;
 import org.apache.nifi.processor.ProcessSession;
@@ -92,6 +92,15 @@ public abstract class AbstractBatchProcessor extends AbstractXNifiProcessor impl
             .addValidator(JsonValidator.INSTANCE)
             .build();
 
+    public static final PropertyDescriptor PROP_IS_ASYNC_MODE = new PropertyDescriptor.Builder()
+            .name("is.async.mode")
+            .displayName("是否使用异步模式")
+            .description("是否使用异步模式")
+            .defaultValue("false")
+            .allowableValues(new AllowableValue("true", "是"), new AllowableValue("false", "否"))
+            .build();
+
+    protected volatile boolean isAsyncMode = false;
     protected volatile String inputRecordType;
     protected volatile String outputRecordType;
     protected volatile String outputRecordExample;
@@ -144,7 +153,11 @@ public abstract class AbstractBatchProcessor extends AbstractXNifiProcessor impl
             writerFactory = new JsonRecordWriterFactory(outputSchema, mergeSchema);
         }
 
-        return new SyncInputStreamCallback(this, readerFactory, writerFactory, logger, original, context, session, outputRecordStrategy);
+        if (isAsyncMode){
+            return new AsyncInputStreamCallback(this, readerFactory, writerFactory, logger, original, context, session, outputRecordStrategy);
+        } else {
+            return new SyncInputStreamCallback(this, readerFactory, writerFactory, logger, original, context, session, outputRecordStrategy);
+        }
     }
 
     @Override
@@ -179,6 +192,7 @@ public abstract class AbstractBatchProcessor extends AbstractXNifiProcessor impl
 
     @Override
     protected void beforeProcess(ProcessContext context) throws ProcessException {
+        isAsyncMode = context.getProperty(PROP_IS_ASYNC_MODE).asBoolean();
         inputRecordType = context.getProperty(PROP_INPUT_RECORD_TYPE).getValue();
         outputRecordType = context.getProperty(PROP_OUTPUT_RECORD_TYPE).getValue();
         outputRecordExample = context.getProperty(PROP_OUTPUT_RECORD_EXAMPLE).getValue();
