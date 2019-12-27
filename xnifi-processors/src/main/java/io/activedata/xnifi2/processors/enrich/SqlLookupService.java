@@ -60,6 +60,7 @@ public class SqlLookupService extends AbstractControllerService implements Looku
 
     public static final PropertyDescriptor PROP_CACHE_EXPIRATION = new PropertyDescriptor.Builder()
             .name("sql-lookup-cache-expiration")
+            .displayName("缓存失效时间")
             .description("缓存失效时间，如果为0则永不失效.")
             .required(false)
             .addValidator(StandardValidators.TIME_PERIOD_VALIDATOR)
@@ -69,7 +70,7 @@ public class SqlLookupService extends AbstractControllerService implements Looku
     public static final PropertyDescriptor PROP_LOOKUP_SQL = new PropertyDescriptor.Builder()
             .name("sql-lookup-sql")
             .displayName("检索SQL")
-            .description("检索SQL。")
+            .description("检索SQL，可用':param1引用记录字段或FlowFile属性。优先引用记录字段'")
             .required(true)
             .addValidator(StandardValidators.NON_BLANK_VALIDATOR)
             .expressionLanguageSupported(ExpressionLanguageScope.FLOWFILE_ATTRIBUTES)
@@ -124,7 +125,7 @@ public class SqlLookupService extends AbstractControllerService implements Looku
         }catch (Exception e){
             ValidationResult validationResult = new ValidationResult.Builder()
                     .input("检索SQL")
-                    .subject("检索服务不可用。")
+                    .subject("检索服务无法启用。")
                     .valid(false)
                     .explanation(ExceptionUtils.getMessage(e))
                     .build();
