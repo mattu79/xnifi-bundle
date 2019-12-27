@@ -35,7 +35,7 @@ import java.util.Set;
  *
  * @author MattU
  */
-public abstract class AbstractBatchProcessor extends AbstractXNifiProcessor implements RecordProcessHandler {
+public abstract class AbstractBatchProcessor extends AbstractXNifiProcessor {
 
     public static final Relationship REL_SUCCESS = new Relationship.Builder()
             .name("success")
@@ -160,7 +160,6 @@ public abstract class AbstractBatchProcessor extends AbstractXNifiProcessor impl
         }
     }
 
-    @Override
     public Tuple<Relationship, Output> processRecord(Map<String, String> attributes, Input input, FlowFile original, ProcessContext context) throws Exception {
         Tuple<Relationship, Output> result = processRecordInternal(attributes, input, original, context);
         return result;
