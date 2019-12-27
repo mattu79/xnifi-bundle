@@ -4,6 +4,7 @@ import com.github.benmanes.caffeine.cache.Cache;
 import io.activedata.xnifi2.core.batch.Input;
 import io.activedata.xnifi2.sql2o.Sql2oHelper;
 import io.activedata.xnifi2.support.cache.CacheBuilder;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.nifi.annotation.documentation.CapabilityDescription;
 import org.apache.nifi.annotation.documentation.Tags;
@@ -62,6 +63,7 @@ public class SqlLookupService extends AbstractControllerService implements Looku
             .name("sql-lookup-cache-expiration")
             .displayName("缓存失效时间")
             .description("缓存失效时间，如果为0则永不失效.")
+            .defaultValue("0 secs")
             .required(false)
             .addValidator(StandardValidators.TIME_PERIOD_VALIDATOR)
             .expressionLanguageSupported(ExpressionLanguageScope.VARIABLE_REGISTRY)
@@ -141,18 +143,23 @@ public class SqlLookupService extends AbstractControllerService implements Looku
             Query query = conn.createQuery(lookupSql);
             Map<String, List<Integer>> paramIdxMap = query.getParamNameToIdxMap();
             String key = Sql2oHelper.cacheKey(paramIdxMap, input, attributes);
-            Record foundRecord = cache.getIfPresent(key);
 
-            if (foundRecord == null) {
-                foundRecord = new MapRecord(this.schema, Sql2oHelper.fetchFirstResult(sql2o, lookupSql, input, attributes));
-                if (foundRecord != null) {
-                    cache.put(key, foundRecord);
-                    getLogger().debug("读取[" + key + "]对应的记录并放入到缓存中。");
-                } else {
-                    getLogger().debug("没有找到[" + key + "]对应的记录。");
+            if (StringUtils.isNotBlank(key)) {
+                Record foundRecord = cache.getIfPresent(key);
+                if (foundRecord == null) {
+                    foundRecord = new MapRecord(this.schema, Sql2oHelper.fetchFirstResult(sql2o, lookupSql, input, attributes));
+                    if (foundRecord != null) {
+                        cache.put(key, foundRecord);
+                        getLogger().debug("读取[" + key + "]对应的记录并放入到缓存中。");
+                    } else {
+                        getLogger().debug("没有找到[" + key + "]对应的记录。");
+                    }
+                    return Optional.ofNullable(foundRecord);
                 }
             }
 
+            // key为空时，不检测缓存直接查询数据返回
+            Record foundRecord = new MapRecord(this.schema, Sql2oHelper.fetchFirstResult(sql2o, lookupSql, input, attributes));
             return Optional.ofNullable(foundRecord);
         }
     }
