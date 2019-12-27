@@ -2,7 +2,7 @@ package io.activedata.xnifi2.processors.sql;
 
 import io.activedata.xnifi2.core.batch.Input;
 import io.activedata.xnifi2.core.batch.Output;
-import io.activedata.xnifi2.sql2o.Sql2oHelper;
+import io.activedata.xnifi2.support.sql2o.Sql2oHelper;
 import org.apache.nifi.annotation.behavior.InputRequirement;
 import org.apache.nifi.annotation.behavior.SupportsBatching;
 import org.apache.nifi.annotation.documentation.CapabilityDescription;

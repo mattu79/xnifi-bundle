@@ -2,7 +2,7 @@ package io.activedata.xnifi2.processors.enrich;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import io.activedata.xnifi2.core.batch.Input;
-import io.activedata.xnifi2.sql2o.Sql2oHelper;
+import io.activedata.xnifi2.support.sql2o.Sql2oHelper;
 import io.activedata.xnifi2.support.cache.CacheBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;

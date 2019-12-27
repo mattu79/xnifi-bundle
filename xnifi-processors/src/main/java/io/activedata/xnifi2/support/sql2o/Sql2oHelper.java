@@ -1,4 +1,4 @@
-package io.activedata.xnifi2.sql2o;
+package io.activedata.xnifi2.support.sql2o;
 
 import org.apache.nifi.dbcp.DBCPService;
 import org.apache.nifi.serialization.SimpleRecordSchema;

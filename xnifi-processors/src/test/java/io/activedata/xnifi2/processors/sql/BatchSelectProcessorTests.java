@@ -2,7 +2,7 @@ package io.activedata.xnifi2.processors.sql;
 
 import com.alibaba.fastjson.JSON;
 import io.activedata.xnifi.test.support.DBCPServiceSimpleImpl;
-import io.activedata.xnifi2.sql2o.Sql2oHelper;
+import io.activedata.xnifi2.support.sql2o.Sql2oHelper;
 import org.apache.commons.codec.Charsets;
 import org.apache.commons.io.IOUtils;
 import org.apache.nifi.dbcp.DBCPService;

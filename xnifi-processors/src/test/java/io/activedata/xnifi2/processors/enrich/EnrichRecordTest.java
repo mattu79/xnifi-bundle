@@ -1,7 +1,7 @@
 package io.activedata.xnifi2.processors.enrich;
 
 import io.activedata.xnifi.test.support.DBCPServiceSimpleImpl;
-import io.activedata.xnifi2.sql2o.Sql2oHelper;
+import io.activedata.xnifi2.support.sql2o.Sql2oHelper;
 import org.apache.nifi.dbcp.DBCPService;
 import org.apache.nifi.reporting.InitializationException;
 import org.apache.nifi.util.MockFlowFile;
